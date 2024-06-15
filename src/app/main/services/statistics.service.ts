@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { ApiService } from 'src/app/shared/api.service';
-import { DailyPriceInfoShort } from 'src/app/shared/intefaces';
+import { ChartData, DailyPriceInfoShort } from 'src/app/shared/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +21,13 @@ export class StatisticsService {
         console.log('Error while fetching data:', err);
         return throwError(err);
       }))
+  }
+
+  mapForChart(prices: DailyPriceInfoShort[]): ChartData {
+    return prices.reduce((acc: ChartData, curr) => {
+      acc.data.push(curr.price);
+      acc.labels.push(curr.date.toLocaleDateString('en-US'))
+      return acc;
+    }, {labels: [], data: []})
   }
 }

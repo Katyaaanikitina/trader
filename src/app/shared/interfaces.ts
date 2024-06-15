@@ -15,3 +15,8 @@ export interface DailyPriceInfoShort {
     price: number;
     date: Date;
 }
+
+export interface ChartData {
+    labels: string[];
+    data: number[];
+}

@@ -1,1 +1,9 @@
-<app-chart *ngIf="pricesPerDay" [data]="pricesPerDay" dataType="Price"></app-chart>
+<div class="chart">
+    <app-chart dataType="Price"></app-chart>
+
+    <div class="chart_controls">
+        <button mat-fab extended (click)="loadPrices('30days')">Last 30 days</button>
+        <button mat-fab extended (click)="loadPrices('thisYear')">This year</button>
+        <button mat-fab extended (click)="loadPrices('3years')">3 years</button>
+    </div>
+</div>

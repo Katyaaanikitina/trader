@@ -3,3 +3,24 @@
     flex-direction: column;
     align-items: center;
 }
+
+button {
+    display: inline-block;
+    background-color: black;
+    color: white;
+    width: fit-content;
+    padding: 0px 16px;
+    height: 38px;
+}
+
+.chart {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 70%;
+
+    &_controls {
+        display: flex;
+        gap: 8px;
+    }
+}

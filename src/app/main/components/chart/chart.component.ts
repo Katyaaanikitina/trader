@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Chart } from 'chart.js/auto';
-import { ChartData } from 'src/app/shared/interfaces';
+import { StatisticsService } from '../../services/statistics.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chart',
@@ -9,13 +10,19 @@ import { ChartData } from 'src/app/shared/interfaces';
 })
 export class ChartComponent {
   @Input() dataType!: string;
-  @Input() data!: ChartData; 
-  chart: any = [];
+  chart!: any;
+  dataSub!: Subscription;
 
-  constructor() {}
+  constructor(private readonly _statisticsService: StatisticsService) {}
 
   ngOnInit() {
-    this._drawChart(this.data.labels, this.data.data);
+    this._statisticsService.pricesPerDay$.subscribe((data) => {
+      (this.chart) ? this._updateChart(data.labels, data.data) : this._drawChart(data.labels, data.data);
+    })
+  }
+
+  ngOnDestroy() {
+    this.dataSub.unsubscribe();
   }
 
   private _drawChart(labels: string[], data: number[]): void {
@@ -42,5 +49,11 @@ export class ChartComponent {
         },
       },
     });
+  }
+
+  private _updateChart(labels: string[], data: number[]): void {
+    this.chart.data.labels = labels;
+    this.chart.data.datasets[0].data = data;
+    this.chart.update();
   }
 }

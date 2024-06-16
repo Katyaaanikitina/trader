@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, catchError, map, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, catchError, map, throwError } from 'rxjs';
 import { ApiService } from 'src/app/shared/api.service';
 import { ChartData, DailyPriceInfoShort } from 'src/app/shared/interfaces';
 
@@ -8,6 +8,7 @@ import { ChartData, DailyPriceInfoShort } from 'src/app/shared/interfaces';
 })
 export class StatisticsService {
   pricesPerDay$: Subject<ChartData> = new Subject();
+  isSubscribeToWebSocket$ = new BehaviorSubject(false);
   
   constructor(private readonly _apiService: ApiService) { }
 

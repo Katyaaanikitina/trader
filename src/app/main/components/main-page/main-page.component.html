@@ -1,27 +1,24 @@
 <header>
-    <p>BTC/USD</p>
-    <button mat-fab extended class="subscribe">Subscribe</button>
+    <p class="title">BTC/USD</p>
+
+    <div class="subscribe">
+        <button mat-fab extended class="subscribe_btn"
+            (click)="subscribeOrUnsubscribe()">
+            {{(isLivePriceSubscribed) ? "Unsubscribe" : "Subscribe"}}
+        </button>
+
+        <p *ngIf="!isLivePriceSubscribed" class="subscribe_tooltip">
+            Subscribe to start getting BTC price in a real time
+        </p>
+    </div>
 </header>
+
 
 <section>
     <p class="label">Market data:</p>
-    <div class="info">
-        <div class="info_item">
-            <p class="info_item__label">Symbol:</p>
-            <p class="info_item__data">BTC/USD</p>
-        </div>
-
-        <div class="info_item">
-            <p class="info_item__label">Price:</p>
-            <p class="info_item__data">$23847659</p>
-        </div>
-
-        <div class="info_item">
-            <p class="info_item__label">Time:</p>
-            <p class="info_item__data">Aug 17, 10:24 AM</p>
-        </div>
-    </div>
+    <app-market-info></app-market-info>
 </section>
+
 
 <section>
     <p class="label">Cryptocurrency over time:</p>

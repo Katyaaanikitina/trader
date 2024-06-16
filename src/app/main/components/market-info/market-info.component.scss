@@ -1,0 +1,27 @@
+.info {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #E9EAEC;
+    padding: 10px 30px;
+    width: 100%;
+    border-radius: 10px;
+
+    &_item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__label {
+            margin-bottom: 6px;
+            color: #C0C0C0;
+        }
+
+        &__data {
+            font-size: 20px;
+        }
+
+        &__loader {
+            width: 30px;
+        }
+    }
+}

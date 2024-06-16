@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { StatisticsService } from '../../services/statistics.service';
-import { ChartData, DailyPriceInfoShort } from 'src/app/shared/interfaces';
-import { BehaviorSubject, Observable, Subject, Subscribable, Subscription, take } from 'rxjs';
+import { DailyPriceInfoShort } from 'src/app/shared/interfaces';
+import { Observable, Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-main-page',
@@ -9,20 +9,27 @@ import { BehaviorSubject, Observable, Subject, Subscribable, Subscription, take 
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent {
+  isLivePriceSubscribed = false;
+  private _isSubscribeToWebSocket!: Subscription;
 
   constructor(private readonly _statisticsService: StatisticsService) {};
 
-  ngOnInit() {
-    // this.loadPrices("thisYear");
+  ngOnInit(): void {
+    this._isSubscribeToWebSocket = this._statisticsService.isSubscribeToWebSocket$.subscribe((value) => this.isLivePriceSubscribed = value)
+    this.loadPrices("thisYear");
   }
 
-  loadPrices(period: "30days" | "thisYear" | "3years") {
-    this.getPrices(period).pipe(take(1)).subscribe((data) => {
+  ngOnDestroy(): void {
+    this._isSubscribeToWebSocket.unsubscribe();
+  }
+
+  loadPrices(period: "30days" | "thisYear" | "3years"): void {
+    this._getPrices(period).pipe(take(1)).subscribe((data) => {
       this._statisticsService.pricesPerDay$.next(this._statisticsService.mapDataForChart(data))
     });
   }
 
-  getPrices(period: "30days" | "thisYear" | "3years"): Observable<DailyPriceInfoShort[]> {
+  private _getPrices(period: "30days" | "thisYear" | "3years"): Observable<DailyPriceInfoShort[]> {
     const today = new Date();
     let daysPassed = 30;
     
@@ -40,5 +47,9 @@ export class MainPageComponent {
         daysPassed = this._statisticsService.countDaysFrom(firstDayOfYear);
         return this._statisticsService.getPricesPerDayShort(firstDayOfYear, daysPassed);
     }
+  }
+
+  subscribeOrUnsubscribe(): void {
+    this._statisticsService.isSubscribeToWebSocket$.next(!this._statisticsService.isSubscribeToWebSocket$.value);
   }
 }

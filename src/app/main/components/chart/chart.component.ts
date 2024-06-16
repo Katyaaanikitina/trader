@@ -11,18 +11,18 @@ import { Subscription } from 'rxjs';
 export class ChartComponent {
   @Input() dataType!: string;
   chart!: any;
-  dataSub!: Subscription;
+  private _dataSub!: Subscription;
 
   constructor(private readonly _statisticsService: StatisticsService) {}
 
-  ngOnInit() {
-    this._statisticsService.pricesPerDay$.subscribe((data) => {
+  ngOnInit(): void {
+    this._dataSub = this._statisticsService.pricesPerDay$.subscribe((data) => {
       (this.chart) ? this._updateChart(data.labels, data.data) : this._drawChart(data.labels, data.data);
     })
   }
 
-  ngOnDestroy() {
-    this.dataSub.unsubscribe();
+  ngOnDestroy(): void {
+    this._dataSub.unsubscribe();
   }
 
   private _drawChart(labels: string[], data: number[]): void {

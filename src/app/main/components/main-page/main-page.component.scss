@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 32px;
+    gap: 54px;
     width: 70%;
     margin: 0 auto;
     padding: 20px;
@@ -13,7 +13,7 @@ header {
     width: 100%;
     gap: 20px;
 
-    p {
+    .title {
         border: 1px solid #E9EAEC;
         padding: 8px 16px;
         width: 90%;
@@ -38,39 +38,31 @@ button {
 }
 
 .subscribe {
-    height: 46px;
-    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-width: 144px;
+
+    &_btn {
+        height: 46px;
+        font-size: 16px;
+        width: fit-content;
+    }
+
+    &_tooltip {
+        font-size: 8px;
+        max-width: 117px;
+        text-align: center;
+    }
 }
 
 .label {
     align-self: start;
     margin-bottom: 8px;
     color: #000;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 500;
     text-transform: uppercase;
-}
-
-.info {
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid #E9EAEC;
-    padding: 10px 30px;
-    width: 100%;
-    border-radius: 10px;
-
-    &_item {
-        text-align: center;
-
-        &__label {
-            margin-bottom: 6px;
-            color: #C0C0C0;
-        }
-
-        &__data {
-            font-size: 20px;
-        }
-    }
 }
 
 .chart {

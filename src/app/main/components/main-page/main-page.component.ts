@@ -9,7 +9,6 @@ import { BehaviorSubject, Observable, Subject, Subscribable, Subscription, take 
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent {
-  pricesPerDay!: ChartData;
 
   constructor(private readonly _statisticsService: StatisticsService) {};
 

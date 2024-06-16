@@ -1,9 +1,36 @@
-<div class="chart">
-    <app-chart dataType="Price"></app-chart>
+<header>
+    <p>BTC/USD</p>
+    <button mat-fab extended class="subscribe">Subscribe</button>
+</header>
 
-    <div class="chart_controls">
-        <button mat-fab extended (click)="loadPrices('30days')">Last 30 days</button>
-        <button mat-fab extended (click)="loadPrices('thisYear')">This year</button>
-        <button mat-fab extended (click)="loadPrices('3years')">3 years</button>
+<section>
+    <p class="label">Market data:</p>
+    <div class="info">
+        <div class="info_item">
+            <p class="info_item__label">Symbol:</p>
+            <p class="info_item__data">BTC/USD</p>
+        </div>
+
+        <div class="info_item">
+            <p class="info_item__label">Price:</p>
+            <p class="info_item__data">$23847659</p>
+        </div>
+
+        <div class="info_item">
+            <p class="info_item__label">Time:</p>
+            <p class="info_item__data">Aug 17, 10:24 AM</p>
+        </div>
     </div>
-</div>
+</section>
+
+<section>
+    <p class="label">Cryptocurrency over time:</p>
+    <div class="chart">
+        <app-chart dataType="Price"></app-chart>
+        <div class="chart_controls">
+            <button mat-fab extended (click)="loadPrices('30days')">Last 30 days</button>
+            <button mat-fab extended (click)="loadPrices('thisYear')">This year</button>
+            <button mat-fab extended (click)="loadPrices('3years')">3 years</button>
+        </div>
+    </div>
+</section>

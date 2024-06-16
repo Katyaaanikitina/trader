@@ -20,3 +20,9 @@ export interface ChartData {
     labels: string[];
     data: number[];
 }
+
+export enum EPeriod {
+    days = "30days", 
+    thisYear = "thisYear",
+    years = "3years",
+}

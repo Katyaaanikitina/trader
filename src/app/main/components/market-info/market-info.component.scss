@@ -1,10 +1,12 @@
+@import 'variables';
+
 .info {
     display: flex;
     justify-content: space-between;
-    border: 1px solid #E9EAEC;
+    border: 1px solid $grey-100;
     padding: 10px 30px;
     width: 100%;
-    border-radius: 10px;
+    border-radius: $border-radius-medium;
 
     &_item {
         display: flex;
@@ -13,11 +15,11 @@
 
         &__label {
             margin-bottom: 6px;
-            color: #C0C0C0;
+            color: $grey-200;
         }
 
         &__data {
-            font-size: 20px;
+            font-size: $font-size-m;
         }
 
         &__loader {

@@ -22,7 +22,7 @@ export class StatisticsService {
 
       catchError(err => {
         console.log('Error while fetching data:', err);
-        return throwError(err);
+        return throwError(() => new Error(err));
       }))
   }
 
@@ -48,10 +48,10 @@ export class StatisticsService {
   countDaysFrom(dateString: string): number {
     const givenDate = new Date(dateString);
     const today = new Date();
-    const differenceInMillis = today.getTime() - givenDate.getTime();
+    const differenceInMillisec = today.getTime() - givenDate.getTime();
 
-    const millisPerDay = 1000 * 60 * 60 * 24;
-    const differenceInDays = Math.floor(differenceInMillis / millisPerDay);
+    const millisecPerDay = 1000 * 60 * 60 * 24;
+    const differenceInDays = Math.floor(differenceInMillisec / millisecPerDay);
 
     return differenceInDays;
   }

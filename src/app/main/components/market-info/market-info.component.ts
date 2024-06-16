@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { StatisticsService } from '../../services/statistics.service';
 import { Subscription } from 'rxjs';
@@ -14,15 +14,15 @@ export class MarketInfoComponent {
 
   private _socket!: WebSocket;
   private _isSubscribeToWebSocket!: Subscription;
-  isConnecting = false;
+  isConnecting = signal(false);
 
-  isLivePriceSubscribed = false;
+  isLivePriceSubscribed = signal(false);
 
   constructor(private readonly _statisticsService: StatisticsService) {}
 
   ngOnInit(): void {
     this._isSubscribeToWebSocket = this._statisticsService.isSubscribeToWebSocket$.subscribe((value) => { 
-      this.isLivePriceSubscribed = value;
+      this.isLivePriceSubscribed.set(value);
       (value) ? this._connectWebSocket() : this._disconnectFromWebSocket();
     })
   }
@@ -33,11 +33,10 @@ export class MarketInfoComponent {
   }
 
   private _connectWebSocket(): void {
-    this.isConnecting = true;
+    this.isConnecting.set(true);
     this._socket = new WebSocket(environment.WEBSOCKET_BASE_URL);
 
     this._socket.onopen = (event) => {
-      console.log('Connected')
 
       this._socket.send(JSON.stringify({
         "type": "hello",
@@ -52,7 +51,7 @@ export class MarketInfoComponent {
       this.price = data.price;
       this.date = data.time_exchange;
 
-      this.isConnecting = false;
+      this.isConnecting.set(false);
     };
 
     this._socket.onerror = (error) => {

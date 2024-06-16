@@ -6,15 +6,15 @@
 
     <div class="info_item">
         <p class="info_item__label">Price:</p>
-        <p *ngIf="isLivePriceSubscribed; else empty" class="info_item__data">{{ price }}
-            <img *ngIf="isConnecting" class="info_item__loader" src="/assets/loader.gif">
+        <p *ngIf="isLivePriceSubscribed(); else empty" class="info_item__data">{{ price }}
+            <img *ngIf="isConnecting()" class="info_item__loader" src="/assets/loader.gif">
         </p>
     </div>
 
     <div class="info_item">
         <p class="info_item__label">Time:</p>
-        <p *ngIf="isLivePriceSubscribed; else empty" class="info_item__data">{{ date | date:'MMM d, h:mm a' }}
-            <img *ngIf="isConnecting" class="info_item__loader" src="/assets/loader.gif">
+        <p *ngIf="isLivePriceSubscribed(); else empty" class="info_item__data">{{ date | date:'MMM d, h:mm a' }}
+            <img *ngIf="isConnecting()" class="info_item__loader" src="/assets/loader.gif">
         </p>
     </div>
 

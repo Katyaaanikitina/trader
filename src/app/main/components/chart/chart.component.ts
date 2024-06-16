@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class ChartComponent {
   @Input() dataType!: string;
-  chart!: any;
+  chart!: Chart;
   private _dataSub!: Subscription;
 
   constructor(private readonly _statisticsService: StatisticsService) {}
@@ -22,7 +22,7 @@ export class ChartComponent {
   }
 
   ngOnDestroy(): void {
-    this._dataSub.unsubscribe();
+    if (this._dataSub) this._dataSub.unsubscribe();
   }
 
   private _drawChart(labels: string[], data: number[]): void {

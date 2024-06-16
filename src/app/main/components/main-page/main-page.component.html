@@ -4,10 +4,10 @@
     <div class="subscribe">
         <button mat-fab extended class="subscribe_btn"
             (click)="subscribeOrUnsubscribe()">
-            {{(isLivePriceSubscribed) ? "Unsubscribe" : "Subscribe"}}
+            {{(isLivePriceSubscribed()) ? "Unsubscribe" : "Subscribe"}}
         </button>
 
-        <p *ngIf="!isLivePriceSubscribed" class="subscribe_tooltip">
+        <p *ngIf="!isLivePriceSubscribed()" class="subscribe_tooltip">
             Subscribe to start getting BTC price in a real time
         </p>
     </div>
@@ -25,9 +25,9 @@
     <div class="chart">
         <app-chart dataType="Price"></app-chart>
         <div class="chart_controls">
-            <button mat-fab extended (click)="loadPrices('30days')">Last 30 days</button>
-            <button mat-fab extended (click)="loadPrices('thisYear')">This year</button>
-            <button mat-fab extended (click)="loadPrices('3years')">3 years</button>
+            <button mat-fab extended (click)="loadPrices(EPeriod.days)">Last 30 days</button>
+            <button mat-fab extended (click)="loadPrices(EPeriod.thisYear)">This year</button>
+            <button mat-fab extended (click)="loadPrices(EPeriod.years)">3 years</button>
         </div>
     </div>
 </section>
